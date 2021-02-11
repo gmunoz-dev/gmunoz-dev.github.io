@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>Blind Deconvolution Estimation</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+<style>
+body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
+body {font-size:16px;}
+.w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
+.w3-half img:hover{opacity:1}
+</style>
+<body>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+  <div class="w3-container">
+    <h3 class="w3-padding-64"><b>Blind Deconvolution Estimation</b></h3>
+  </div>
+  <div class="w3-bar-block">
+    <!-- <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">FLIM and BDE</a> -->
+    <a href="#1FLIM"         onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">FLIM and BDE</a> 
+    <a href="#2Algorithm"    onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Algorithm</a> 
+    <a href="#3Downloads"    onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Downloads</a> 
+    <a href="#4Contact"      onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Contact</a> 
+    <a href="#5Ackn"         onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Acknowledgments</a>
+    <a href="#6References"   onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">References</a>
+  </div>
+</nav>
+
+<!-- Top menu on small screens -->
+<header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
+  <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
+  <span>Blind Deconvolution Estimation </span>
+</header>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+
+
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:340px;margin-right:40px">
+
+  <!-- 1 FLIM and BDE -->
+  <div class="w3-container" style="margin-top:80px" id="1FLIM">
+    <h1 class="w3-jumbo"><b>Blind Deconvolution Estimation </b></h1>
+    <h1 class="w3-xxxlarge w3-text-red"><b>FLIM and Blind Deconvolution Estimation</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+	<p style="text-align: justify;">In fluorescence lifetime imaging microscopy (FLIM), a sample is excited by an electromagnetic source, usually an ultraviolet narrow laser-pulse (instrument response, IR). The sample’s fluorophores will emit light (fluorescence decay, FD) that could be used to extract the components in the sample (fluorescence impulse response, FIR). In order to identify the FIR of the sample and provide quantitative information of the FLIM data, a deconvolution stage needs to isolate the IR from the FD.</p>
+    <p style="text-align: justify;">In the next image we can appreciate the FLIM observation model the instrument response 
+    <img src="https://quicklatex.com/cache3/ab/ql_c0069a16752ebec3486981033de74eab_l3.png">
+    is common to all <em>K</em> spatial points, and the FDs
+    <img src="https://quicklatex.com/cache3/2e/ql_37e9f7c8cf44ac2c7daa775b6755432e_l3.png">
+    result from the convolution between the FIRs
+    <img src="https://quicklatex.com/cache3/c6/ql_0f61475107940dede9c35f6e3d0f84c6_l3.png">
+    and the IR
+    <img src="https://quicklatex.com/cache3/ab/ql_c0069a16752ebec3486981033de74eab_l3.png">
+    .
+    </p>
+    <img style="display: block; margin-left: auto; margin-right: auto; border-width: 20px; width:75%;" src="FLIM_model.png" alt="FLIM Model">
+    <p style="text-align: justify;">A fast convergence blind deconvolution estimation functions (BDE) are given as mFiles for Matlab &copy;. By this process, the fluorescence impulse responses (FIRs) of the sample are decoupled from the instrument response (IR).</p>
+  </div>
+
+
+
+
+  <!-- 2 BDE Algorithm -->
+  <div class="w3-container" id="2Algorithm" style="margin-top:75px">
+    <h1 class="w3-xxxlarge w3-text-red"><b>BDE Algorithm</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+     <p style="text-align: justify;">The BDE methodology aims to simultaneously estimate the IR and the FIRs in the sample using multi-exponential models and alternated least squares in global and local fashions. The local perspective of the BDE methodology assumes that the characteristic parameters of the exponential functions (time constants and scaling coefficients) are estimated based on a single spatial point of the dataset. On the other hand, the same exponential functions are used for all the dataset in the global perspective, and just the scaling coefficients are updated for each spatial point. A least squares formulation is considered for both BDE algorithms.</p>
+     
+     
+     
+      <p>&nbsp;</p>
+      <p style="text-align: justify;">The FLIM observation model for the 
+      <img src="https://quicklatex.com/cache3/38/ql_a1ed42993dee9816b48f9ae116112338_l3.png">-th <!-- l -->
+      time sample in the 
+      <img src="https://quicklatex.com/cache3/4c/ql_1a87528c522c8b6941edc30db986224c_l3.png">-th <!-- k -->
+      spatial position is given by Eq (1):</p>
+      <p style="text-align: center;">
+      <img src="https://quicklatex.com/cache3/1b/ql_fa17adc66c791a1d4996c787dfc9b71b_l3.png">   &nbsp; &nbsp; &nbsp;
+      <img src="https://quicklatex.com/cache3/b8/ql_247624fb494752a0e61876eb8d3cd4b8_l3.png">
+      </p>
+      where
+      <p><img src="https://quicklatex.com/cache3/eb/ql_ade993bf1186fe32895f0a10c27f24eb_l3.png">:
+      denotes the measured fluorescence decay (FD)</p>
+      <p><img src="https://quicklatex.com/cache3/ab/ql_c0069a16752ebec3486981033de74eab_l3.png">: 
+      denotes the measured instrument response (IR)</p>
+      <p><img src="https://quicklatex.com/cache3/44/ql_538e8e05540636460eaff08cf787b644_l3.png">: 
+      denotes the fluorescense impulse response (FIR)</p>
+      <p><img src="https://quicklatex.com/cache3/4e/ql_79f26d0a2ac22a29be932f5fdf53b14e_l3.png">: 
+      stands for random noise realted to measurement uncertainty</p>
+      <p><img src="https://quicklatex.com/cache3/21/ql_367e4ea1c0d9df87471ff42d58ef7c21_l3.png">: 
+      represents the convolution operator</p>
+		
+        
+        
+      <p style="text-align: justify;">In our formulation, the FIR time sample at 
+       <img src="https://quicklatex.com/cache3/4c/ql_1a87528c522c8b6941edc30db986224c_l3.png">-th 
+       position is characterized by the linear combination of N exponentials functions. According to the nature of the exponential functions, we adopt two strategies to model the 
+       <img src="https://quicklatex.com/cache3/38/ql_a1ed42993dee9816b48f9ae116112338_l3.png">-th 
+       FIR time sample:</p>
+      <ul>
+        <li style="text-align: justify;">Local Approach: the time constants of the exponential functions 
+        <img src="https://quicklatex.com/cache3/f0/ql_a7c11ad9593203112f2df3d859ca85f0_l3.png">
+        are different at each <img src="https://quicklatex.com/cache3/4c/ql_1a87528c522c8b6941edc30db986224c_l3.png">-th spatial location:</li>
+        <p style="text-align: center;">
+        <img src="https://quicklatex.com/cache3/35/ql_b12a1ee231578d5d7c6f5378789cf535_l3.png">
+        </p>
+        <li style="text-align: justify;">Global Approach: common exponential functions with time constants 
+        <img src="https://quicklatex.com/cache3/5b/ql_095b93480602c23d097dc3267395cf5b_l3.png">
+        are scaled at each 
+        <img src="https://quicklatex.com/cache3/4c/ql_1a87528c522c8b6941edc30db986224c_l3.png">-th spatial location:</li>
+        <p style="text-align: center;">
+        <img src="https://quicklatex.com/cache3/5f/ql_e0ea0348d6fbe508be85a84df0cd095f_l3.png">
+        </p>
+      </ul>
+      
+      <p style="text-align: justify;">The scaling coefficients 
+      <img src="https://quicklatex.com/cache3/14/ql_0e0ff3968f619fd018888bc6f5101014_l3.png">
+      are selected different for each spatial location 
+      <img src="https://quicklatex.com/cache3/4c/ql_1a87528c522c8b6941edc30db986224c_l3.png">,
+      such that the estimated FD matches the actual measurement</p>
+      
+      
+      
+      <p>&nbsp;</p>
+      <p style="text-align: justify;">The observation model in Eq (1) can be expressed in vector notation for the local approach as:</p>
+      <p style="text-align: center;">
+      <img src="https://quicklatex.com/cache3/59/ql_904779bbe1f935a3fa0c383706853859_l3.png">
+      </p>
+      <p>and similarly, for the global approach as</p>
+      <p style="text-align: center;">
+      <img src="https://quicklatex.com/cache3/40/ql_6904576a5140b42858affaecaa6a4340_l3.png">
+      </p>
+      <p>where</p>
+      <img src="https://quicklatex.com/cache3/b6/ql_89f2b24295719ec73ac8c54653edb0b6_l3.png">
+      <p>Also, 
+      <img src="https://quicklatex.com/cache3/1e/ql_fc432c3aa81603b3fb348072e18d681e_l3.png">
+      is the length of the FD and the IR 
+      <img src="https://quicklatex.com/cache3/e1/ql_316cf1fc1ff5d5d7a79f57e02a9816e1_l3.png">
+      should be positive and sum-to-one.</p>
+      
+      <p>In FLIM applications, the IR is sparse, so there is no need to estimate every sample. Hence, we consider only the first 
+      <img src="https://quicklatex.com/cache3/da/ql_48ff249bc750ddce06d4f87047d2ddda_l3.png"> terms 
+      <img src="https://quicklatex.com/cache3/35/ql_cd70b8a9974363347a1c8c307693f235_l3.png"> to represent the IR. As a result, the input matrix 
+	  <img src="https://quicklatex.com/cache3/bc/ql_ebdbf654323c7fee72c0761c21c9ffbc_l3.png"> can be parametrized as a linear combination of 
+      <img src="https://quicklatex.com/cache3/da/ql_48ff249bc750ddce06d4f87047d2ddda_l3.png"> Toeplitz  matrices:
+      <p style="text-align: center;">
+      <img src="https://quicklatex.com/cache3/b1/ql_c71f0b7795b6c2a138c29a0f4543c7b1_l3.png">
+      </p>
+      </p>
+      <p style="text-align: justify;">we can formulate the local BDE as a maximum likelihood estimation, which is equivalent to the following nonlinear least-squares approximation problem</p>
+      <p style="text-align: center;">
+      <img src="https://quicklatex.com/cache3/d6/ql_acdeabe6f6bd9f6ccb08f5e5ced38fd6_l3.png">
+      </p>
+	  such that
+      <p style="text-align: center;">
+      <img src="https://quicklatex.com/cache3/b3/ql_8f2cd7d15ce80a94916f691908b004b3_l3.png">
+      </p>
+      <p>A similar approximation problem is defined for the global BDE:</p>
+      <p style="text-align: center;">
+      <img src="https://quicklatex.com/cache3/a3/ql_8bf458ed7126208bfb5233436ad087a3_l3.png">
+      </p>
+      <p>with the same restrictions but 
+      <img src="https://quicklatex.com/cache3/d4/ql_796446b371b7ee74edfd52094c38d5d4_l3.png">
+      </p>
+      <p>&nbsp;</p>
+      
+      <p>To estimate the free parameters of the IR <img src="https://quicklatex.com/cache3/80/ql_06630bc2eb666593ddf9d77f0c44ef80_l3.png">, and those involved in the FIR <img src="https://quicklatex.com/cache3/4a/ql_759e458b53bd5e2467f5c5b61c26414a_l3.png"> or <img src="https://quicklatex.com/cache3/af/ql_0c4b22f851cf0f8dd8525bc75e0abfaf_l3.png">; we applied ALS approach where we estimate a solution for the FIR components while fixing the IR, and vice versa until convergence.</p>
+      <p>The block diagram algorithms of the local and global approach are shown below</p>
+      <h1>&nbsp;</h1>
+      <p style="text-align: center;">
+      <a href="http://galia.fc.uaslp.mx/~bde/BDELocalDiag.jpg" target="_blank" rel="noopener">
+      <img src="BDELocalDiag.jpg" alt="Local" style="width:45%">
+      </a>
+      &nbsp;
+      <a href="http://galia.fc.uaslp.mx/~bde/BDEGlobalDiag.jpg" target="_blank" rel="noopener">
+      <img src="BDEGlobalDiag.jpg" alt="Global" style="width:45%">
+      </a>
+      </p>
+  </div>
+  
+
+
+
+  
+  
+  <!-- 3 Downloads -->
+  <div class="w3-container" id="3Downloads" style="margin-top:75px">
+    <h1 class="w3-xxxlarge w3-text-red"><b>Matlab functions and Files</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+    <p style="text-align: justify;">A comparison with the standard deconvolution techniques with a multi-exponential model, as well as, with two BDE methodologies in the state of the art: Laguerre basis, and exponentials library are implemented and given as mFiles:</p>
+<ul>
+<li><a href="Test_Synthetic.m">Test_Synthetic.m</a>: Example of the algorithms evaluation (requires <a href="MatlabScripts_BDE.zip">all files</a>)</li>
+<li><a href="BDELME.m">BDELME.m</a>: Blind Deconvolution by Local Multi-Exponential Model</li>
+<li><a href="BDEGME.m">BDEGME.m</a>: Blind Deconvolution Estimation by Global Multi-Exponential Model</li>
+<li><a href="flimsynth2.m">flimsynth2.m</a>: Generate a synthetic dataset of FLIM measurements (requires <a href="dataexp1.mat">dataexp1.mat</a>)</li>
+<li><a href="BDEEL.m">BDEEL.m</a>: Blind Deconvolution Estimation by Exponentials Library</li>
+<li><a href="BDELB.m">BDELB.m</a>: Blind Deconvolution Estimation by Laguerre Basis</li>
+<li><a href="DELME.m">DELME.m</a>: Deconvolution Estimation by Local Multi Exponential Model</li>
+<li><a href="DEGME.m">DEGME.m</a>: Deconvolution Estimation by Global Multi-Exponential Model</li>
+<li><a href="FWHM2.m">FWHM2.m</a>: metric for evaluation</li>
+<li>All the functions could be downloaded as zip file <a href="MatlabScripts_BDE.zip">here</a>.</li>
+</ul>
+<p>&nbsp;</p>
+<p style="text-align: justify;">The local perspective in the FIR construction allows a major diversity in the fitting of the measured FDs, since at 
+<img src="https://quicklatex.com/cache3/4c/ql_1a87528c522c8b6941edc30db986224c_l3.png">-th spatial location there are 
+<img src="https://quicklatex.com/cache3/52/ql_f52ff67408d84ab213b6b2362212f052_l3.png"> parameters 
+<img src="https://quicklatex.com/cache3/4f/ql_67f275f51eef905d71dea8fa5286274f_l3.png"> and
+<img src="https://quicklatex.com/cache3/f0/ql_a7c11ad9593203112f2df3d859ca85f0_l3.png"> to be estimated. On the other hand, the global perspective assumes the same exponential functions in the whole dataset, so at <img src="https://quicklatex.com/cache3/4c/ql_1a87528c522c8b6941edc30db986224c_l3.png">-th spatial location just the 
+<img src="https://quicklatex.com/cache3/8c/ql_d8cfceb430a24d23ac20c66f2645c18c_l3.png"> scaling parameters 
+<img src="https://quicklatex.com/cache3/4f/ql_67f275f51eef905d71dea8fa5286274f_l3.png"> are obtained, resulting in a faster fitting procedure compared to the local approach at the expense of limited diversity.</p>
+</div>
+	
+ <!-- 4 Contact -->
+  <!-- 
+ <div class="w3-container" id="4Contact" style="margin-top:75px">
+  <h1 class="w3-xxxlarge w3-text-red"><b>Contact.</b></h1>
+  <hr style="width:50px;border:5px solid red" class="w3-round">
+  <div class="w3-row-padding w3-grayscale">
+    <div class="w3-col m4 w3-margin-bottom">
+      <div class="w3-light-grey">
+        <img src="/w3images/team1.jpg" alt="Daniel" style="width:100%">
+        <div class="w3-container">
+          <h3>Daniel U. Campos-Delgado</h3>
+          <p class="w3-opacity">Designer</p>
+          <p>Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.</p>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  -->
+  <div class="w3-container" id="4Contact" style="margin-top:75px">
+  <h1 class="w3-xxxlarge w3-text-red"><b>Contact.</b></h1>
+  <hr style="width:50px;border:5px solid red" class="w3-round">
+   <p>Feel free to make any comment or suggestion, contact us for more information:</p>
+    <br><font size="+2">Daniel U. Campos-Delgado</font>
+    <br>Universidad Autonoma de San Luis Potosi, Facultad de Ciencias
+    <br>Av. Chapultepec #1570, Priv. del Pedregal, SLP, Mexico.
+    <br>E-mail: ducd@fciencias.uaslp.mx
+    <br>Tel: +52(444) 8262300 ext.
+    <br>Web: <a href="http://galia.fc.uaslp.mx/~ducd/">http://galia.fc.uaslp.mx/~ducd/</a>
+  </div>
+  
+   
+   <!--
+    <p>Send us a message</p>
+    <form action="/action_page.php" target="_blank">
+      <div class="w3-section">
+        <label>Name</label>
+        <input class="w3-input w3-border" type="text" name="Name" required>
+      </div>
+      <div class="w3-section">
+        <label>Email</label>
+        <input class="w3-input w3-border" type="text" name="Email" required>
+      </div>
+      <div class="w3-section">
+        <label>Message</label>
+        <input class="w3-input w3-border" type="text" name="Message" required>
+      </div>
+      <button type="submit" class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom">Send Message</button>
+    </form>  
+  </div>  
+  -->
+  
+
+  <!-- 5 Acknowledgments -->
+  <div class="w3-container" id="5Ackn" style="margin-top:75px">
+    <h1 class="w3-xxxlarge w3-text-red"><b>Acknowledgments</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+	<p style="text-align: justify;">This study was supported by the American Heart Association (Beginning Grant-in-Aid 519 Grant 0765102Y), the National Institutes of Health (NIH) (1R21CA132433, 520 1R01HL11136), and by CONACYT through a Basic Research Grant (Ref # 254637).
+    </p>   
+  </div>
+  
+  
+  <!-- 6 References -->
+  <div class="w3-container" id="6References" style="margin-top:75px">
+    <h1 class="w3-xxxlarge w3-text-red"><b>References</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+    <ol>
+    <li style="text-align: justify;">Campos-Delgado DU, Gutierrez-Navarro O, Rico-Jimenez JJ, Duran-Sierra E, Fabelo H, Ortega S, et al. Extended Blind End-Member and Abundance Extraction for Biomedical Imaging Applications. IEEE Access. 2019;7:178539&ndash;178552.</li>
+    <li style="text-align: justify;">Gutierrez-Navarro O, Campos-Delgado DU, Arce-Santana ER, Maitland KC, Cheng S, Jabbour J, et al. Estimation of the number of fluorescent end-members for quantitative analysis of multispectral FLIM data. Optics Express. 2014;22(10):12255&ndash;12272.</li>
+    <li style="text-align: justify;">Campos-Delgado DU, Navarro OG, Arce-Santana E, Jo JA. Extended output phasor representation of multi-spectral fluorescence lifetime imaging microscopy. Biomedical optics express. 2015;6(6):2088&ndash;2105.</li>
+    <li style="text-align: justify;">Campos-Delgado DU, Gutierrez-Navarro O, Arce-Santana ER, Skala MC, Walsh AJ, Jo JA. Blind deconvolution estimation of fluorescence measurements through quadratic programming. Journal of Biomedical Optics. 2015;20(7):075010.</li>
+    <li style="text-align: justify;">Salinas-Martinez R, Campos-Delgado DU, Jo JA. Global Blind Deconvolution of Fluorescence Lifetime Imaging Microscopy. In: Latin America Optics and Photonics Conference. Optical Society of America; 2018. p. W2C.4.</li>
+    <li style="text-align: justify;">Campos-Delgado DU, Navarro OG, Arce-Santana E, Walsh AJ, Skala MC, Jo JA. Deconvolution of fluorescence lifetime imaging microscopy by a library of exponentials. Optics Express. 2015;23(18):23748&ndash;23767.</li>
+    <li style="text-align: justify;">Campos-Delgado DU, Gutierrez-Navarro O, Mejia-Rodriguez A, Jo JA. Blind Deconvolution Estimation by an Exponentials Library. In: Submitted to 2020 IEEE International Autumn Meeting on Power, Electronics and Computing (ROPEC 2020). Ixtapa, Mexico: IEEE; 2020.</li>
+    </ol>
+  </div>
+
+
+<!-- End page content -->
+</div>
+
+
+
+
+
+
+<!-- W3.CSS Container 
+<div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px"><p class="w3-right">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></p></div>-->
+<div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px"><p class="w3-right">  <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity"></a></p></div>
+
+<script>
+// Script to open and close sidebar
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("myOverlay").style.display = "block";
+}
+ 
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("myOverlay").style.display = "none";
+}
+
+// Modal Image Gallery
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.innerHTML = element.alt;
+}
+</script>
+
+</body>
+</html>
+
+
+  <!-- Photo grid (modal) -->
+  <!-- 
+  <div class="w3-row-padding">
+    <div class="w3-half">
+      <img src="/w3images/kitchenconcrete.jpg" style="width:100%" onclick="onClick(this)" alt="Concrete meets bricks">
+      <img src="/w3images/livingroom.jpg" style="width:100%" onclick="onClick(this)" alt="Light, white and tight scandinavian design">
+      <img src="/w3images/diningroom.jpg" style="width:100%" onclick="onClick(this)" alt="White walls with designer chairs">
+    </div>
+
+    <div class="w3-half">
+      <img src="/w3images/atrium.jpg" style="width:100%" onclick="onClick(this)" alt="Windows for the atrium">
+      <img src="/w3images/bedroom.jpg" style="width:100%" onclick="onClick(this)" alt="Bedroom and office in one space">
+      <img src="/w3images/livingroom2.jpg" style="width:100%" onclick="onClick(this)" alt="Scandinavian design">
+    </div>
+  </div>
+  -->
+
+  <!-- Modal for full size images on click-->
+  <!--
+  <div id="modal01" class="w3-modal w3-black" style="padding-top:0" onclick="this.style.display='none'">
+    <span class="w3-button w3-black w3-xxlarge w3-display-topright">×</span>
+    <div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64">
+      <img id="img01" class="w3-image">
+      <p id="caption"></p>
+    </div>
+  </div>
+  -->
